@@ -42,7 +42,7 @@ interface UploadItem {
   fileUrl: string;
 }
 
-export function StudentsMonitor({ searchQuery }: StudentsMonitorProps) {
+export default function NotesSection({ searchQuery }: StudentsMonitorProps) {
   const [activeTab, setActiveTab] = useState("dashboard")
   const [files, setFiles] = useState<UploadItem[]>([])
   const [loading, setLoading] = useState(true)

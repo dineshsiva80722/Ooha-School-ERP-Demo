@@ -36,7 +36,7 @@ export function FacultyDashboard() {
 
   const modules = [
     { id: "overview", name: "Dashboard Overview", icon: Calendar },
-    { id: "students", name: "Students Monitor", icon: Users },
+    { id: "students", name: "Note'sNest", icon: BookOpen },
     { id: "staff", name: "Staff Monitor", icon: User },
   ]
 
@@ -185,7 +185,7 @@ function FacultyOverview({ stats, schedule, quickActions }: { stats: any; schedu
     <div className="space-y-6">
       {/* Faculty Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
+        {/* <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">My Students</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
@@ -194,7 +194,7 @@ function FacultyOverview({ stats, schedule, quickActions }: { stats: any; schedu
             <div className="text-2xl font-bold">{stats.totalStudents}</div>
             <p className="text-xs text-muted-foreground">Across {stats.myClasses} classes</p>
           </CardContent>
-        </Card>
+        </Card> */}
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

@@ -16,7 +16,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useAuth } from "@/components/auth/auth-context"
-import { GraduationCap, Search, Bell, Settings, LogOut, User, Moon, Sun, Menu, X } from "lucide-react"
+import { Search, Bell, Settings, LogOut, User, Moon, Sun, Menu, X } from "lucide-react"
+import Image from "next/image"
 
 interface AppLayoutProps {
   children: React.ReactNode
@@ -56,8 +57,8 @@ export function AppLayout({ children, sidebar }: AppLayoutProps) {
 
             {/* Logo */}
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <GraduationCap className="w-5 h-5 text-white" />
+              <div className="w-36 h-16 rounded-lg flex items-center justify-center">
+               <Image src="https://res.cloudinary.com/do7dw5dwq/image/upload/v1749028343/ohaa-schhol-logo_pntql7.jpg" alt="Logo" width={100} height={80} className="object-contain w-full h-full" />
               </div>
               <div className="hidden sm:block">
                 <h1 className="text-xl font-bold text-gray-900">EduManage Pro</h1>

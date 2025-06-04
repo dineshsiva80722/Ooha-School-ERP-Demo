@@ -37,10 +37,10 @@ export function LoginForm() {
   }
 
   const demoCredentials = [
-    { role: "SuperAdmin", email: "superadmin@school.edu", password: "admin123" },
+    // { role: "SuperAdmin", email: "superadmin@school.edu", password: "admin123" },
     { role: "Admin", email: "admin@school.edu", password: "admin123" },
     { role: "Faculty", email: "faculty@school.edu", password: "faculty123" },
-    { role: "Student", email: "student@school.edu", password: "student123" },
+    // { role: "Student", email: "student@school.edu", password: "student123" },
   ]
 
   const handleDemoLogin = async (email: string, password: string) => {

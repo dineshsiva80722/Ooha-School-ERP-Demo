@@ -8,6 +8,7 @@ import { AppLayout } from "@/components/layout/app-layout"
 import { StaffManagement } from "@/components/admin/staff-management"
 import { StudentManagement } from "@/components/admin/student-management"
 import { EmployeeManagement } from "@/components/admin/employee-management"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import {
   Users,
   GraduationCap,
@@ -21,18 +22,30 @@ import {
   Download,
   Calendar,
   DollarSign,
+  Key,
 } from "lucide-react"
+import NotesSection from "@/components/admin/notes-section"
 
 export function AdminDashboard() {
   const [activeModule, setActiveModule] = useState("overview")
   const [searchQuery, setSearchQuery] = useState("")
+  const [isPrincipalMode, setIsPrincipalMode] = useState(false)
+  const [principalPassword, setPrincipalPassword] = useState("")
+  const [showPasswordModal, setShowPasswordModal] = useState(false)
 
   const modules = [
     { id: "overview", name: "Dashboard Overview", icon: BarChart3 },
     { id: "staff", name: "Staff Management", icon: GraduationCap },
-    { id: "students", name: "Student Management", icon: Users },
     { id: "employees", name: "Employee Management", icon: Briefcase },
   ]
+
+  // Add daily-report and notes only if in principal mode
+  if (isPrincipalMode) {
+    modules.push(
+      { id: "daily-report", name: "Daily Report", icon: Users },
+      { id: "notes", name: "Note'sNest", icon: Users }
+    )
+  }
 
   const adminStats = {
     totalStaff: 89,
@@ -59,9 +72,25 @@ export function AdminDashboard() {
             {module.name}
           </Button>
         ))}
+        <Button
+          variant="outline"
+          className="w-full justify-start mt-4"
+          onClick={() => setShowPasswordModal(true)}
+        >
+          <Key className="w-4 h-4 mr-2" />
+          Principal Access
+        </Button>
       </div>
     </nav>
   )
+
+  const handlePrincipalAccess = () => {
+    // Add your principal access validation logic here
+    if (principalPassword === "principal123") { // Change this to your actual validation logic
+      setIsPrincipalMode(true)
+      setShowPasswordModal(false)
+    }
+  }
 
   return (
     <AppLayout sidebar={sidebar}>
@@ -93,19 +122,38 @@ export function AdminDashboard() {
           </div>
         </div>
 
-        {activeModule === "overview" && <AdminOverview stats={adminStats} />}
+        {activeModule === "overview" && <AdminOverview stats={adminStats} isPrincipalMode={isPrincipalMode} />}
         {activeModule === "staff" && <StaffManagement searchQuery={searchQuery} />}
-        {activeModule === "students" && <StudentManagement searchQuery={searchQuery} />}
         {activeModule === "employees" && <EmployeeManagement searchQuery={searchQuery} />}
+        {isPrincipalMode && activeModule === "daily-report" && <StudentManagement searchQuery={searchQuery} />}
+        {isPrincipalMode && activeModule === "notes" && <NotesSection searchQuery={searchQuery} />}
+
+        <Dialog open={showPasswordModal} onOpenChange={setShowPasswordModal}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Principal Access</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <Input
+                type="password"
+                placeholder="principal123"
+                value={principalPassword}
+                onChange={(e) => setPrincipalPassword(e.target.value)}
+                className="w-full"
+              />
+              <Button onClick={handlePrincipalAccess}>Access Principal Dashboard</Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </AppLayout>
   )
 }
 
-function AdminOverview({ stats }: { stats: any }) {
+function AdminOverview({ stats, isPrincipalMode }: { stats: any, isPrincipalMode: boolean }) {
   const quickActions = [
     { title: "Add New Staff", icon: GraduationCap, color: "bg-blue-500", module: "staff" },
-    { title: "Enroll Student", icon: Users, color: "bg-green-500", module: "students" },
+    // { title: "Enroll Faculty", icon: Users, color: "bg-green-500", module: "students" },
     { title: "Add Employee", icon: Briefcase, color: "bg-purple-500", module: "employees" },
     { title: "Schedule Event", icon: Calendar, color: "bg-orange-500", module: "events" },
   ]
@@ -135,7 +183,7 @@ function AdminOverview({ stats }: { stats: any }) {
           </CardContent>
         </Card>
 
-        <Card>
+        {/* <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Students</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
@@ -147,7 +195,7 @@ function AdminOverview({ stats }: { stats: any }) {
               +25 new admissions
             </p>
           </CardContent>
-        </Card>
+        </Card> */}
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

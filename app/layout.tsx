@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Dezprox ERP System',
+  title: 'OHAA ERP System',
   description:
     'Dezprox ERP System is a comprehensive and integrated system for managing all aspects of a business. It includes modules for managing customers, suppliers, inventory, sales, purchases, accounting, and payroll. The system is designed to be user-friendly and easy to use, and it is accessible from anywhere with an internet connection.',
   icons: {
